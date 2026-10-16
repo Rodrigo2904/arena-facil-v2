@@ -54,7 +54,9 @@ export default async function PanelBookings({ searchParams }: { searchParams: Pr
 
   const chip = (active: boolean) =>
     `rounded-full px-3 py-1.5 text-sm font-medium ring-1 ring-inset ${
-      active ? "bg-slate-900 text-white ring-slate-900" : "bg-white text-slate-700 ring-slate-200 hover:ring-slate-400"
+      active
+        ? "bg-slate-900 text-white ring-slate-900 dark:text-slate-50"
+        : "bg-white text-slate-700 ring-slate-200 hover:ring-slate-400 dark:bg-white/5"
     }`;
 
   return (
