@@ -1,0 +1,18 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Variáveis de ambiente locais (contêm segredos)
+.env
+.env.local
+
+# Banco SQLite de desenvolvimento
+prisma/*.db
+prisma/*.db-journal
+
+.vscode/
+Thumbs.db
+Desktop.ini
+*.log

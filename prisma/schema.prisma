@@ -1,0 +1,91 @@
+// Para produção com PostgreSQL, troque provider para "postgresql"
+// e ajuste DATABASE_URL no .env.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// role: "CLIENT" | "OWNER"
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  phone        String?
+  passwordHash String
+  role         String    @default("CLIENT")
+  createdAt    DateTime  @default(now())
+  courts       Court[]
+  bookings     Booking[]
+}
+
+// sport: ver SPORTS em src/lib/constants.ts
+model Court {
+  id           String    @id @default(cuid())
+  ownerId      String
+  owner        User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name         String
+  sport        String
+  description  String    @default("")
+  address      String
+  neighborhood String    @default("")
+  city         String
+  imageUrl     String?
+  // Preço em centavos para evitar problemas de arredondamento
+  priceCents   Int
+  // Horário de funcionamento: reservas de 1h começando em openHour..closeHour-1
+  openHour     Int       @default(8)
+  closeHour    Int       @default(23)
+  active       Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  bookings     Booking[]
+  fixedSlots   FixedSlot[]
+
+  @@index([city])
+  @@index([ownerId])
+}
+
+// status: "PENDING" | "CONFIRMED" | "REJECTED" | "CANCELLED"
+model Booking {
+  id         String   @id @default(cuid())
+  courtId    String
+  court      Court    @relation(fields: [courtId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Data local (America/Sao_Paulo) no formato YYYY-MM-DD
+  date       String
+  startHour  Int
+  status     String   @default("PENDING")
+  // Preço no momento da reserva (a quadra pode mudar de preço depois)
+  priceCents Int
+  // "courtId:date:hora" enquanto a reserva ocupa o horário; null quando
+  // recusada/cancelada. O índice único impede reserva dupla mesmo com
+  // requisições simultâneas.
+  slotKey    String?  @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([courtId, date])
+  @@index([userId])
+}
+
+// Mensalista: horário fixo toda semana, cadastrado pelo dono. Não gera linhas
+// em Booking; o horário fica ocupado em todas as semanas enquanto existir.
+// weekday: 0 = domingo ... 6 = sábado
+model FixedSlot {
+  id         String   @id @default(cuid())
+  courtId    String
+  court      Court    @relation(fields: [courtId], references: [id], onDelete: Cascade)
+  weekday    Int
+  startHour  Int
+  clientName String
+  phone      String?
+  createdAt  DateTime @default(now())
+
+  @@unique([courtId, weekday, startHour])
+}

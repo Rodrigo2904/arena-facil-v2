@@ -1,0 +1,5 @@
+# Mantém quebras de linha LF em qualquer sistema (Windows, Mac, Linux)
+* text=auto eol=lf
+*.woff2 binary
+*.png binary
+*.jpg binary
