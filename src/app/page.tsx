@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { SPORTS, type Sport } from "@/lib/constants";
 import { CourtCard } from "@/components/CourtCard";
+import { HeroField } from "@/components/HeroField";
 
 export const dynamic = "force-dynamic";
 
@@ -14,40 +15,45 @@ export default async function Home() {
   return (
     <>
       <section className="bg-gradient-to-br from-brand-900 via-brand-700 to-brand-600 text-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
-          <p className="mb-3 text-sm font-semibold tracking-wide text-brand-200 uppercase">Reserva de quadras sem complicação</p>
-          <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Encontre a quadra, veja o horário livre e marque o jogo.
-          </h1>
-          <p className="mt-4 max-w-xl text-lg text-brand-100">
-            Society, futsal, vôlei, beach tennis e muito mais. Sem ligação, sem grupo de WhatsApp.
-          </p>
-
-          <form action="/quadras" className="mt-8 grid max-w-3xl gap-3 rounded-2xl bg-white p-3 shadow-xl sm:grid-cols-[1fr_1fr_auto]">
-            <label className="sr-only" htmlFor="cidade">
-              Cidade
-            </label>
-            <select id="cidade" name="cidade" className="input" defaultValue="">
-              <option value="">Todas as cidades</option>
-              {cities.map((c) => (
-                <option key={c.city} value={c.city}>
-                  {c.city}
-                </option>
-              ))}
-            </select>
-            <label className="sr-only" htmlFor="esporte">
-              Modalidade
-            </label>
-            <select id="esporte" name="esporte" className="input" defaultValue="">
-              <option value="">Todas as modalidades</option>
-              {Object.entries(SPORTS).map(([key, s]) => (
-                <option key={key} value={key}>
-                  {s.label}
-                </option>
-              ))}
-            </select>
-            <button className="btn btn-primary px-6">Buscar quadras</button>
-          </form>
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:py-20 lg:grid-cols-[1.1fr_1fr]">
+          <div className="min-w-0">
+            <p className="mb-3 text-sm font-semibold tracking-wide text-brand-200 uppercase">Reserva de quadras sem complicação</p>
+            <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight sm:text-5xl">
+              Encontre a quadra, veja o horário livre e marque o jogo.
+            </h1>
+            <p className="mt-4 max-w-xl text-lg text-brand-100">
+              Society, futsal, vôlei, beach tennis e muito mais. Sem ligação, sem grupo de WhatsApp.
+            </p>
+  
+            <form action="/quadras" className="mt-8 grid gap-3 rounded-2xl bg-white p-3 shadow-xl sm:grid-cols-[1fr_1fr_auto]">
+              <label className="sr-only" htmlFor="cidade">
+                Cidade
+              </label>
+              <select id="cidade" name="cidade" className="input" defaultValue="">
+                <option value="">Todas as cidades</option>
+                {cities.map((c) => (
+                  <option key={c.city} value={c.city}>
+                    {c.city}
+                  </option>
+                ))}
+              </select>
+              <label className="sr-only" htmlFor="esporte">
+                Modalidade
+              </label>
+              <select id="esporte" name="esporte" className="input" defaultValue="">
+                <option value="">Todos os esportes</option>
+                {Object.entries(SPORTS).map(([key, s]) => (
+                  <option key={key} value={key}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
+              <button className="btn btn-primary px-6">Buscar quadras</button>
+            </form>
+          </div>
+          <div className="hidden lg:block">
+            <HeroField />
+          </div>
         </div>
       </section>
 
