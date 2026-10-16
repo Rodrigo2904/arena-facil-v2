@@ -9,10 +9,87 @@
   --color-brand-600: #15803d;
   --color-brand-700: #166534;
   --color-brand-900: #0b2e1a;
+  --color-brand-950: #0a0e0c;
 }
+
+/* Tema escuro: classe "dark" no <html> (botão do cabeçalho); "light" mantém um trecho claro dentro dele */
+@custom-variant dark (&:where(.dark, .dark *):not(:where(.light, .light *)));
 
 html {
   color-scheme: light;
+}
+
+/*
+ * No tema escuro a escala de cinzas é invertida (grafite com leve tom verde): texto
+ * escuro vira claro, fundos e bordas claros viram escuros. Assim as telas não
+ * precisam de uma versão escura classe por classe.
+ */
+.dark {
+  color-scheme: dark;
+  --color-slate-50: #0b0f0d;
+  --color-slate-100: #121815;
+  --color-slate-200: #222a26;
+  --color-slate-300: #333d38;
+  --color-slate-400: #6f7a74;
+  --color-slate-500: #8f9a94;
+  --color-slate-600: #aab3ae;
+  --color-slate-700: #cdd4d0;
+  --color-slate-800: #e1e6e3;
+  --color-slate-900: #f1f4f2;
+  --color-slate-950: #ffffff;
+  --color-brand-50: #121815;
+  --color-brand-700: #6fcf97;
+  /* Selos, avisos e horários livres: fundo escuro colorido, texto claro */
+  --color-emerald-50: #10251a;
+  --color-emerald-100: #143022;
+  --color-emerald-200: #234a35;
+  --color-emerald-800: #9ee6bd;
+  --color-sky-50: #0c2a3d;
+  --color-sky-100: #0f3550;
+  --color-sky-200: #1e4f70;
+  --color-sky-800: #7dd3fc;
+  --color-amber-50: #33250a;
+  --color-amber-100: #45320c;
+  --color-amber-200: #6b4e12;
+  --color-amber-800: #fcd34d;
+  --color-rose-50: #3b1219;
+  --color-rose-100: #4c1620;
+  --color-rose-200: #6f2230;
+  --color-rose-800: #fda4af;
+}
+
+/* Painel do dono continua claro por enquanto: devolve as cores originais */
+.light {
+  color-scheme: light;
+  --color-slate-50: oklch(98.4% 0.003 247.858);
+  --color-slate-100: oklch(96.8% 0.007 247.896);
+  --color-slate-200: oklch(92.9% 0.013 255.508);
+  --color-slate-300: oklch(86.9% 0.022 252.894);
+  --color-slate-400: oklch(70.4% 0.04 256.788);
+  --color-slate-500: oklch(55.4% 0.046 257.417);
+  --color-slate-600: oklch(44.6% 0.043 257.281);
+  --color-slate-700: oklch(37.2% 0.044 257.287);
+  --color-slate-800: oklch(27.9% 0.041 260.031);
+  --color-slate-900: oklch(20.8% 0.042 265.755);
+  --color-slate-950: oklch(12.9% 0.042 264.695);
+  --color-brand-50: #ecfdf3;
+  --color-brand-700: #166534;
+  --color-emerald-50: oklch(97.9% 0.021 166.113);
+  --color-emerald-100: oklch(95% 0.052 163.051);
+  --color-emerald-200: oklch(90.5% 0.093 164.15);
+  --color-emerald-800: oklch(43.2% 0.095 166.913);
+  --color-sky-50: oklch(97.7% 0.013 236.62);
+  --color-sky-100: oklch(95.1% 0.026 236.824);
+  --color-sky-200: oklch(90.1% 0.058 230.902);
+  --color-sky-800: oklch(44.3% 0.11 240.79);
+  --color-amber-50: oklch(98.7% 0.022 95.277);
+  --color-amber-100: oklch(96.2% 0.059 95.617);
+  --color-amber-200: oklch(92.4% 0.12 95.746);
+  --color-amber-800: oklch(47.3% 0.137 46.201);
+  --color-rose-50: oklch(96.9% 0.015 12.422);
+  --color-rose-100: oklch(94.1% 0.03 12.58);
+  --color-rose-200: oklch(89.2% 0.058 10.001);
+  --color-rose-800: oklch(45.5% 0.188 13.697);
 }
 
 body {
@@ -27,28 +104,29 @@ body {
       disabled:cursor-not-allowed disabled:opacity-60;
   }
   .btn-primary {
-    @apply bg-brand-600 text-white shadow-sm hover:bg-brand-700;
+    @apply bg-brand-600 text-white shadow-sm hover:bg-brand-700 dark:hover:bg-brand-500;
   }
   .btn-secondary {
-    @apply bg-white text-slate-800 ring-1 ring-slate-300 ring-inset hover:bg-slate-50;
+    @apply bg-white text-slate-800 ring-1 ring-slate-300 ring-inset hover:bg-slate-50 dark:bg-white/5 dark:hover:bg-white/10;
   }
   .btn-danger {
-    @apply bg-white text-rose-700 ring-1 ring-rose-200 ring-inset hover:bg-rose-50;
+    @apply bg-white text-rose-700 ring-1 ring-rose-200 ring-inset hover:bg-rose-50
+      dark:bg-white/5 dark:text-rose-300 dark:ring-rose-400/30 dark:hover:bg-rose-500/10;
   }
   .btn-ghost {
-    @apply text-slate-700 hover:bg-slate-100;
+    @apply text-slate-700 hover:bg-slate-100 dark:hover:bg-white/10;
   }
   .btn-sm {
     @apply px-3 py-1.5 text-xs;
   }
 
   .card {
-    @apply rounded-2xl bg-white shadow-sm ring-1 ring-slate-200;
+    @apply rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-white/5 dark:shadow-none dark:ring-white/10;
   }
 
   .input {
     @apply block w-full rounded-lg border-0 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm ring-1 ring-slate-300
-      ring-inset placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500 focus:outline-none;
+      ring-inset placeholder:text-slate-400 focus:ring-2 focus:ring-brand-500 focus:outline-none dark:bg-white/5 dark:ring-white/15;
   }
   .input[aria-invalid="true"] {
     @apply ring-rose-400;

@@ -1,21 +1,23 @@
+import type { IconName } from "@/components/SportIcon";
+
 export const ROLES = ["CLIENT", "OWNER"] as const;
 export type Role = (typeof ROLES)[number];
 
 export const SPORTS = {
-  society: { label: "Society", emoji: "⚽", gradient: "from-emerald-500 to-green-700" },
-  futsal: { label: "Futsal", emoji: "🥅", gradient: "from-sky-500 to-blue-700" },
-  campo: { label: "Campo", emoji: "🏟️", gradient: "from-lime-500 to-green-800" },
-  volei: { label: "Vôlei", emoji: "🏐", gradient: "from-amber-400 to-orange-600" },
-  beach_tennis: { label: "Beach Tennis", emoji: "🎾", gradient: "from-yellow-400 to-amber-600" },
-  padel: { label: "Padel", emoji: "🏓", gradient: "from-fuchsia-500 to-purple-700" },
-  tenis: { label: "Tênis", emoji: "🎾", gradient: "from-orange-500 to-red-600" },
-  basquete: { label: "Basquete", emoji: "🏀", gradient: "from-orange-500 to-rose-700" },
+  society: { label: "Society", icon: "ball-football", gradient: "from-emerald-500 to-green-700" },
+  futsal: { label: "Futsal", icon: "play-football", gradient: "from-sky-500 to-blue-700" },
+  campo: { label: "Campo", icon: "soccer-field", gradient: "from-lime-500 to-green-800" },
+  volei: { label: "Vôlei", icon: "ball-volleyball", gradient: "from-amber-400 to-orange-600" },
+  beach_tennis: { label: "Beach Tennis", icon: "beach", gradient: "from-yellow-400 to-amber-600" },
+  padel: { label: "Padel", icon: "ping-pong", gradient: "from-fuchsia-500 to-purple-700" },
+  tenis: { label: "Tênis", icon: "ball-tennis", gradient: "from-orange-500 to-red-600" },
+  basquete: { label: "Basquete", icon: "ball-basketball", gradient: "from-orange-500 to-rose-700" },
 } as const;
 export type Sport = keyof typeof SPORTS;
 export const SPORT_KEYS = Object.keys(SPORTS) as [Sport, ...Sport[]];
 
 export function sportInfo(sport: string) {
-  return SPORTS[sport as Sport] ?? { label: sport, emoji: "🏅", gradient: "from-slate-500 to-slate-700" };
+  return SPORTS[sport as Sport] ?? { label: sport, icon: "ball-football" as IconName, gradient: "from-slate-500 to-slate-700" };
 }
 
 export const BOOKING_STATUS = {

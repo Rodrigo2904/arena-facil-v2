@@ -9,6 +9,7 @@ import { formatDateLong, formatDateShort, formatHour, formatMoney, formatSlot, f
 import { addDays, diffDays, isValidDateString, todayLocal } from "@/lib/time";
 import { createBooking } from "@/app/actions/bookings";
 import { CourtCover } from "@/components/CourtCard";
+import { SportIcon } from "@/components/SportIcon";
 import { Flash } from "@/components/Flash";
 import { SubmitButton } from "@/components/buttons";
 import { Alert, BackLink } from "@/components/ui";
@@ -51,8 +52,8 @@ export default async function CourtPage({ params, searchParams }: Props) {
         <div className="min-w-0">
           <CourtCover court={court} className="h-64 w-full rounded-2xl sm:h-80" />
           <div className="mt-5">
-            <span className="text-xs font-semibold tracking-wide text-brand-700 uppercase">
-              {sport.emoji} {sport.label}
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-brand-700 uppercase">
+              <SportIcon name={sport.icon} className="size-4" /> {sport.label}
             </span>
             <h1 className="mt-1 text-3xl font-bold tracking-tight">{court.name}</h1>
             <p className="mt-2 text-slate-600">
@@ -70,7 +71,7 @@ export default async function CourtPage({ params, searchParams }: Props) {
                 href={maps.google}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg bg-white px-3 py-1.5 font-semibold text-brand-700 ring-1 ring-slate-200 ring-inset hover:ring-brand-500"
+                className="rounded-lg bg-white px-3 py-1.5 font-semibold text-brand-700 ring-1 ring-slate-200 ring-inset hover:ring-brand-500 dark:bg-white/5"
               >
                 🧭 Como chegar
               </a>
@@ -108,7 +109,7 @@ export default async function CourtPage({ params, searchParams }: Props) {
                       scroll={false}
                       aria-current={selected ? "date" : undefined}
                       className={`flex min-w-16 flex-col items-center rounded-xl px-3 py-2 text-sm ring-1 ring-inset ${
-                        selected ? "bg-brand-600 text-white ring-brand-600" : "bg-white ring-slate-200 hover:ring-brand-500"
+                        selected ? "bg-brand-600 text-white ring-brand-600" : "bg-white ring-slate-200 hover:ring-brand-500 dark:bg-white/5"
                       }`}
                     >
                       <span className={`text-xs capitalize ${selected ? "text-brand-100" : "text-slate-500"}`}>

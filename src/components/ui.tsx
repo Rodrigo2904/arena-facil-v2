@@ -83,7 +83,7 @@ export function BackLink({ href, children }: { href: string; children: ReactNode
   return (
     <Link
       href={href}
-      className="group inline-flex items-center gap-2 rounded-full bg-white py-2 pr-4 pl-3 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200 transition ring-inset hover:text-brand-700 hover:ring-brand-500"
+      className="group inline-flex items-center gap-2 rounded-full bg-white py-2 pr-4 pl-3 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200 transition ring-inset hover:text-brand-700 hover:ring-brand-500 dark:bg-white/5 dark:shadow-none"
     >
       <svg viewBox="0 0 20 20" fill="currentColor" className="size-4 transition group-hover:-translate-x-0.5" aria-hidden>
         <path

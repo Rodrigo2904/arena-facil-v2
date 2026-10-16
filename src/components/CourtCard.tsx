@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { sportInfo } from "@/lib/constants";
+import { SportIcon } from "./SportIcon";
 import { cityState, formatMoney } from "@/lib/format";
 
 type CourtCardData = {
@@ -20,8 +21,8 @@ export function CourtCover({ court, className = "" }: { court: Pick<CourtCardDat
     return <img src={court.imageUrl} alt={court.name} className={`object-cover ${className}`} />;
   }
   return (
-    <div className={`flex items-center justify-center bg-gradient-to-br ${sport.gradient} ${className}`} aria-hidden>
-      <span className="text-6xl drop-shadow">{sport.emoji}</span>
+    <div className={`flex items-center justify-center bg-gradient-to-br ${sport.gradient} dark:brightness-[.85] dark:saturate-[.7] ${className}`} aria-hidden>
+      <SportIcon name={sport.icon} className="size-16 text-white drop-shadow" />
     </div>
   );
 }

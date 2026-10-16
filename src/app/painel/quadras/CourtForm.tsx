@@ -56,7 +56,7 @@ export function CourtForm({ initial }: { initial: CourtFormValues }) {
             <select id="sport" name="sport" defaultValue={v.sport} className="input" aria-invalid={!!err.sport}>
               {Object.entries(SPORTS).map(([key, s]) => (
                 <option key={key} value={key}>
-                  {s.emoji} {s.label}
+                  {s.label}
                 </option>
               ))}
             </select>

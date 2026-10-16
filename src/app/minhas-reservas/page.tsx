@@ -9,6 +9,7 @@ import { isPastSlot } from "@/lib/time";
 import { cancelMyBooking } from "@/app/actions/bookings";
 import { Flash } from "@/components/Flash";
 import { SubmitButton } from "@/components/buttons";
+import { SportIcon } from "@/components/SportIcon";
 import { EmptyState, PageHeader, StatusBadge } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Minhas reservas" };
@@ -44,8 +45,8 @@ export default async function MyBookingsPage({ searchParams }: { searchParams: P
           {upcoming.map((b) => (
             <li key={b.id} className="card flex flex-wrap items-center justify-between gap-4 p-4 sm:p-5">
               <div className="flex items-center gap-4">
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-2xl" aria-hidden>
-                  {sportInfo(b.court.sport).emoji}
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700" aria-hidden>
+                  <SportIcon name={sportInfo(b.court.sport).icon} className="size-6" />
                 </div>
                 <div>
                   <Link href={`/quadras/${b.court.id}`} className="font-semibold hover:text-brand-700">

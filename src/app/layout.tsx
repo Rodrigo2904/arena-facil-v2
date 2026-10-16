@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import localFont from "next/font/local";
 import Link from "next/link";
 import { Header } from "@/components/Header";
@@ -12,13 +13,16 @@ export const metadata: Metadata = {
   description: "Encontre quadras de society, futsal, vôlei, beach tennis e mais. Veja horários livres e reserve em poucos cliques.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Tema escolhido no botão do cabeçalho (cookie), para já desenhar a página certa
+  const escuro = (await cookies()).get("tema")?.value === "escuro";
+
   return (
-    <html lang="pt-BR" className={inter.variable}>
+    <html lang="pt-BR" className={`${inter.variable}${escuro ? " dark" : ""}`}>
       <body className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1">{children}</main>
-        <footer className="border-t border-slate-200 bg-white">
+        <footer className="border-t border-slate-200 bg-white dark:border-white/10 dark:bg-brand-950">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-6 text-sm text-slate-500">
             <span>© {new Date().getFullYear()} Arena Fácil</span>
             <nav className="flex gap-4">
