@@ -1,8 +1,6 @@
 # ⚽ Arena Fácil
 
-Meu projeto pessoal de SaaS para **donos de quadra**: o dono divulga a quadra, os jogadores dele reservam pelo site e ele só aprova ou recusa. Nada de agenda perdida no WhatsApp.
-
-A ideia é começar pequeno, focado no dono, que é quem paga. Os jogadores chegam pelo link que o dono divulga. A busca de quadras "perto de mim" e o marketplace ficam para depois, quando já houver alguns donos usando.
+SaaS para donos de quadra: os jogadores reservam pelo site e o dono só aprova ou recusa.
 
 ## O que já funciona
 
