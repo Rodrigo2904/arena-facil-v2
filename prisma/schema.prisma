@@ -34,6 +34,10 @@ model Court {
   address      String
   neighborhood String    @default("")
   city         String
+  // Sigla do estado (UF), ex.: "SP". Vazio em quadras antigas.
+  state        String    @default("")
+  // CEP no formato 00000-000 (opcional)
+  zipCode      String    @default("")
   imageUrl     String?
   // Preço em centavos para evitar problemas de arredondamento
   priceCents   Int

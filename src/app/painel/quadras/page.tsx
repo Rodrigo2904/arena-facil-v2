@@ -3,7 +3,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { requireOwner } from "@/lib/auth";
 import { sportInfo } from "@/lib/constants";
-import { formatHour, formatMoney } from "@/lib/format";
+import { cityState, formatHour, formatMoney } from "@/lib/format";
 import { deleteCourt, toggleCourtActive } from "@/app/actions/courts";
 import { CourtCover } from "@/components/CourtCard";
 import { Flash } from "@/components/Flash";
@@ -54,7 +54,7 @@ export default async function PanelCourts({ searchParams }: { searchParams: Prom
                   </span>
                 </div>
                 <p className="mt-1 text-sm text-slate-600">
-                  {formatMoney(c.priceCents)}/h · {formatHour(c.openHour)}–{formatHour(c.closeHour)} · {c.city}
+                  {formatMoney(c.priceCents)}/h · {formatHour(c.openHour)}–{formatHour(c.closeHour)} · {cityState(c)}
                 </p>
                 <p className="text-xs text-slate-500">{c._count.bookings} reservas no histórico</p>
 

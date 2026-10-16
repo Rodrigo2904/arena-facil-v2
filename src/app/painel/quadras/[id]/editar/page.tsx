@@ -26,6 +26,8 @@ export default async function EditCourtPage({ params }: { params: Promise<{ id: 
           address: court.address,
           neighborhood: court.neighborhood,
           city: court.city,
+          state: court.state,
+          zipCode: court.zipCode,
           imageUrl: court.imageUrl ?? "",
           price: centsToInput(court.priceCents),
           openHour: String(court.openHour),

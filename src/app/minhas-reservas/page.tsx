@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { requireUser } from "@/lib/auth";
 import { canClientCancel } from "@/lib/bookings";
 import { BOOKING_STATUS, type BookingStatus, sportInfo } from "@/lib/constants";
-import { formatDateLong, formatMoney, formatSlot } from "@/lib/format";
+import { cityState, formatDateLong, formatMoney, formatSlot } from "@/lib/format";
 import { isPastSlot } from "@/lib/time";
 import { cancelMyBooking } from "@/app/actions/bookings";
 import { Flash } from "@/components/Flash";
@@ -19,7 +19,7 @@ export default async function MyBookingsPage({ searchParams }: { searchParams: P
 
   const bookings = await db.booking.findMany({
     where: { userId: user.id },
-    include: { court: { select: { id: true, name: true, sport: true, address: true, city: true } } },
+    include: { court: { select: { id: true, name: true, sport: true, address: true, city: true, state: true } } },
     orderBy: [{ date: "asc" }, { startHour: "asc" }],
   });
 
@@ -55,7 +55,7 @@ export default async function MyBookingsPage({ searchParams }: { searchParams: P
                     {formatDateLong(b.date)} · {formatSlot(b.startHour)}
                   </p>
                   <p className="text-xs text-slate-500">
-                    {b.court.address}, {b.court.city} · {formatMoney(b.priceCents)}
+                    {b.court.address}, {cityState(b.court)} · {formatMoney(b.priceCents)}
                   </p>
                 </div>
               </div>

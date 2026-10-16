@@ -142,15 +142,19 @@ ok(r.html.includes("já está cadastrado") && !anon2.cookies.has("arena_session"
 // 8. Novo dono cadastra quadra com preço negativo e depois válido
 page = await neo.get("/painel/quadras/nova");
 const courtForm = neo.forms(page.html).find((f) => f.body.includes('name="price"'));
-const base = { name: "Minha Quadra", sport: "society", description: "", address: "Rua A, 1", neighborhood: "", city: "Recife", imageUrl: "", openHour: "8", closeHour: "22" };
+const base = { name: "Minha Quadra", sport: "society", description: "", address: "Rua A, 1", neighborhood: "", city: "Recife", state: "PE", zipCode: "50030-230", imageUrl: "", openHour: "8", closeHour: "22" };
 r = await neo.submit("/painel/quadras/nova", courtForm, { ...base, price: "-50" });
 ok(r.html.includes("Preço inválido") || r.html.includes("maior que zero"), "preço negativo recusado");
 r = await neo.submit("/painel/quadras/nova", courtForm, { ...base, price: "150,50", closeHour: "7" });
 ok(r.html.includes("depois da abertura"), "fechamento antes da abertura recusado");
+r = await neo.submit("/painel/quadras/nova", courtForm, { ...base, price: "150,50", state: "" });
+ok(r.html.includes("Escolha o estado"), "quadra sem estado recusada");
+r = await neo.submit("/painel/quadras/nova", courtForm, { ...base, price: "150,50", zipCode: "123" });
+ok(r.html.includes("CEP inválido"), "CEP inválido recusado");
 r = await neo.submit("/painel/quadras/nova", courtForm, { ...base, price: "150,50" });
 ok(r.location?.includes("ok=criada"), "quadra criada");
 r = await anon.get("/quadras?cidade=Recife");
-ok(r.html.includes("Minha Quadra") && r.html.includes("150,50"), "quadra nova aparece na busca com preço certo");
+ok(r.html.includes("Minha Quadra") && r.html.includes("150,50") && r.html.includes("Recife - PE"), "quadra nova aparece na busca com preço e estado");
 
 // 9. Mensalistas (na quadra nova do teste, sem reservas antigas)
 page = await neo.get("/painel/mensalistas");

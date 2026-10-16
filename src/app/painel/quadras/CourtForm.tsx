@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useActionState, useState } from "react";
 import { saveCourt } from "@/app/actions/courts";
-import { SPORTS } from "@/lib/constants";
+import { SPORTS, UFS } from "@/lib/constants";
 import { CourtCover } from "@/components/CourtCard";
 import { SubmitButton } from "@/components/buttons";
 import { Alert, Field } from "@/components/ui";
@@ -16,6 +16,8 @@ export type CourtFormValues = {
   address: string;
   neighborhood: string;
   city: string;
+  state: string;
+  zipCode: string;
   imageUrl: string;
   price: string;
   openHour: string;
@@ -65,19 +67,44 @@ export function CourtForm({ initial }: { initial: CourtFormValues }) {
           <textarea id="description" name="description" rows={4} defaultValue={v.description} className="input" />
         </Field>
 
-        <div className="grid gap-5 sm:grid-cols-[2fr_1fr]">
+        <div className="grid gap-5 sm:grid-cols-[1fr_2fr]">
+          <Field label="CEP (opcional)" name="zipCode" errors={err.zipCode}>
+            <input
+              id="zipCode"
+              name="zipCode"
+              inputMode="numeric"
+              maxLength={9}
+              defaultValue={v.zipCode}
+              className="input"
+              aria-invalid={!!err.zipCode}
+              placeholder="00000-000"
+            />
+          </Field>
           <Field label="Endereço" name="address" errors={err.address}>
             <input id="address" name="address" defaultValue={v.address} className="input" aria-invalid={!!err.address} placeholder="Rua, número" />
           </Field>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-[1fr_1fr_7rem]">
           <Field label="Bairro" name="neighborhood" errors={err.neighborhood}>
             <input id="neighborhood" name="neighborhood" defaultValue={v.neighborhood} className="input" />
+          </Field>
+          <Field label="Cidade" name="city" errors={err.city}>
+            <input id="city" name="city" defaultValue={v.city} className="input" aria-invalid={!!err.city} />
+          </Field>
+          <Field label="Estado" name="state" errors={err.state}>
+            <select id="state" name="state" defaultValue={v.state} className="input" aria-invalid={!!err.state}>
+              <option value="">UF</option>
+              {UFS.map((uf) => (
+                <option key={uf} value={uf}>
+                  {uf}
+                </option>
+              ))}
+            </select>
           </Field>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-3">
-          <Field label="Cidade" name="city" errors={err.city}>
-            <input id="city" name="city" defaultValue={v.city} className="input" aria-invalid={!!err.city} />
-          </Field>
           <Field label="Abre às" name="openHour" errors={err.openHour}>
             <select id="openHour" name="openHour" defaultValue={v.openHour} className="input">
               {HOURS.slice(0, 24).map((h) => (
@@ -96,16 +123,14 @@ export function CourtForm({ initial }: { initial: CourtFormValues }) {
               ))}
             </select>
           </Field>
-        </div>
-
-        <div className="grid gap-5 sm:grid-cols-[1fr_2fr]">
           <Field label="Preço por hora (R$)" name="price" errors={err.price}>
             <input id="price" name="price" inputMode="decimal" defaultValue={v.price} className="input" aria-invalid={!!err.price} placeholder="120,00" />
           </Field>
-          <Field label="Link da foto (opcional)" name="imageUrl" errors={err.imageUrl} hint="Cole o link https:// de uma foto da quadra.">
-            <input id="imageUrl" name="imageUrl" type="url" defaultValue={v.imageUrl} className="input" aria-invalid={!!err.imageUrl} placeholder="https://…" />
-          </Field>
         </div>
+
+        <Field label="Link da foto (opcional)" name="imageUrl" errors={err.imageUrl} hint="Cole o link https:// de uma foto da quadra.">
+          <input id="imageUrl" name="imageUrl" type="url" defaultValue={v.imageUrl} className="input" aria-invalid={!!err.imageUrl} placeholder="https://…" />
+        </Field>
 
         <div className="flex gap-3 border-t border-slate-100 pt-5">
           <SubmitButton pendingText="Salvando…">{initial.id ? "Salvar alterações" : "Cadastrar quadra"}</SubmitButton>

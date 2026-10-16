@@ -16,6 +16,8 @@ export default function NewCourtPage() {
           address: "",
           neighborhood: "",
           city: "",
+          state: "",
+          zipCode: "",
           imageUrl: "",
           price: "",
           openHour: "8",

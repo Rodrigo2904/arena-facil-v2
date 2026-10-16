@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ROLES, SPORT_KEYS } from "./constants";
+import { ROLES, SPORT_KEYS, UF_KEYS } from "./constants";
 import { parseMoneyToCents } from "./format";
 
 const trimmed = (max: number) => z.string().trim().max(max, `Máximo de ${max} caracteres.`);
@@ -30,6 +30,14 @@ export const courtSchema = z
     address: trimmed(200).min(3, "Informe o endereço."),
     neighborhood: trimmed(100).default(""),
     city: trimmed(100).min(2, "Informe a cidade."),
+    state: z.enum(UF_KEYS, { errorMap: () => ({ message: "Escolha o estado." }) }),
+    zipCode: z
+      .string()
+      .trim()
+      .default("")
+      .transform((v) => v.replace(/\D/g, ""))
+      .refine((v) => v === "" || v.length === 8, "CEP inválido. Ex.: 01234-567")
+      .transform((v) => (v ? `${v.slice(0, 5)}-${v.slice(5)}` : "")),
     imageUrl: z
       .string()
       .trim()

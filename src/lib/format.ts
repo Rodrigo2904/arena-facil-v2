@@ -60,11 +60,18 @@ export function whatsappUrl(phone: string | null | undefined, text?: string) {
 }
 
 /** Links de mapa a partir do endereço (não precisa de coordenadas nem de chave de API). */
-export function mapLinks(court: { address: string; neighborhood: string; city: string }) {
-  const q = encodeURIComponent([court.address, court.neighborhood, court.city].filter(Boolean).join(", "));
+export function mapLinks(court: { address: string; neighborhood: string; city: string; state?: string; zipCode?: string }) {
+  const q = encodeURIComponent(
+    [court.address, court.neighborhood, cityState(court), court.zipCode, "Brasil"].filter(Boolean).join(", "),
+  );
   return {
     embed: `https://maps.google.com/maps?q=${q}&z=16&output=embed`,
     google: `https://www.google.com/maps/search/?api=1&query=${q}`,
     waze: `https://waze.com/ul?q=${q}&navigate=yes`,
   };
+}
+
+/** "São Paulo - SP" (ou só a cidade, em quadras antigas sem estado). */
+export function cityState(court: { city: string; state?: string }) {
+  return court.state ? `${court.city} - ${court.state}` : court.city;
 }

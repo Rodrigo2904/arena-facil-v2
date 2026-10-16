@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { sportInfo } from "@/lib/constants";
-import { formatMoney } from "@/lib/format";
+import { cityState, formatMoney } from "@/lib/format";
 
 type CourtCardData = {
   id: string;
   name: string;
   sport: string;
   city: string;
+  state?: string;
   neighborhood: string;
   imageUrl: string | null;
   priceCents: number;
@@ -44,7 +45,7 @@ export function CourtCard({ court }: { court: CourtCardData }) {
         <h3 className="font-semibold text-slate-900 group-hover:text-brand-700">{court.name}</h3>
         <p className="mt-0.5 text-sm text-slate-500">
           📍 {court.neighborhood ? `${court.neighborhood}, ` : ""}
-          {court.city}
+          {cityState(court)}
         </p>
       </div>
     </Link>

@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { getDaySlots } from "@/lib/bookings";
 import { MAX_DAYS_AHEAD, sportInfo } from "@/lib/constants";
-import { formatDateLong, formatDateShort, formatHour, formatMoney, formatSlot, formatWeekday, mapLinks } from "@/lib/format";
+import { formatDateLong, formatDateShort, formatHour, formatMoney, formatSlot, formatWeekday, cityState, mapLinks } from "@/lib/format";
 import { addDays, diffDays, isValidDateString, todayLocal } from "@/lib/time";
 import { createBooking } from "@/app/actions/bookings";
 import { CourtCover } from "@/components/CourtCard";
@@ -57,7 +57,7 @@ export default async function CourtPage({ params, searchParams }: Props) {
             <h1 className="mt-1 text-3xl font-bold tracking-tight">{court.name}</h1>
             <p className="mt-2 text-slate-600">
               📍 {court.address}
-              {court.neighborhood && ` — ${court.neighborhood}`}, {court.city}
+              {court.neighborhood && ` — ${court.neighborhood}`}, {cityState(court)}
             </p>
             <div className="mt-4 flex flex-wrap gap-3 text-sm">
               <span className="rounded-lg bg-brand-50 px-3 py-1.5 font-semibold text-brand-700">

@@ -34,3 +34,9 @@ export const MAX_DAYS_AHEAD = 60;
 
 /** Índice = dia da semana (0 = domingo), igual a weekdayOf(). */
 export const WEEKDAYS = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"] as const;
+
+export const UFS = [
+  "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
+  "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO",
+] as const;
+export const UF_KEYS = UFS as unknown as [string, ...string[]];

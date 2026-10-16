@@ -54,7 +54,7 @@ async function main() {
     courts.push(
       await db.court.create({
         data: {
-          ownerId: c.owner.id, name: c.name, sport: c.sport, city: c.city, neighborhood: c.neighborhood,
+          ownerId: c.owner.id, name: c.name, sport: c.sport, city: c.city, state: "SP", neighborhood: c.neighborhood,
           address: c.address, description: c.description, priceCents: c.price, openHour: c.open, closeHour: c.close,
         },
       }),
